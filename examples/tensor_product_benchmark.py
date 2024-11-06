@@ -34,7 +34,7 @@ def main() -> None:
     parser.add_argument("--opt-ein", type=t_or_f, default=True)
     parser.add_argument("--specialized-code", type=t_or_f, default=True)
     parser.add_argument("--elementwise", action="store_true")
-    parser.add_argument("-n", type=int, default=1000)
+    parser.add_argument("-n", type=int, default=10)
     parser.add_argument("--batch", type=int, default=10)
 
     args = parser.parse_args()
@@ -70,7 +70,7 @@ def main() -> None:
         print(f"  {ins}")
 
     # from https://pytorch.org/docs/master/_modules/torch/utils/benchmark/utils/timer.html#Timer.timeit
-    warmup = max(int(args.n // 100), 1)
+    warmup = max(int(args.n // 100), 2)
 
     inputs = iter(
         [
@@ -80,8 +80,8 @@ def main() -> None:
     )
 
     # compile
-    if args.jit:
-        tp = compile(tp)
+    # if args.jit:
+    #     tp = compile(tp)
 
     print("starting...")
 
